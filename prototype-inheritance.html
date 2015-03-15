@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>FACTORY OBJECT</title>
+    <script>
+        
+    // READING
+    // http://javascript.crockford.com/prototypal.html
+    
+    if (typeof Object.create !== 'function') {
+        Object.create = function (o) {
+            function F() {}
+            F.prototype = o;
+            return new F();
+        };
+    }
+    
+    (function () {
+    
+        var Mammel = Object.create(Object);
+
+        aaMammel.prototype = {
+            type: '';            
+        }
+        
+        aaMammel.prototype.run = function() {
+            return "runing";
+        }
+        
+        aaMammel.prototype.walk = function() {
+            return "walking";
+        }
+        
+        console.log(Mammel);
+        
+        //---------
+        
+        var Cat = Object.create(aaMammel);
+        
+        Cat.prototype = {
+            type: 'cat'; 
+        }
+                
+        console.log(aaCat.walk());
+               
+    }());
+    
+               
+    
+    
+    
+   </script>
+</head>
+<body></body>
+</html>
