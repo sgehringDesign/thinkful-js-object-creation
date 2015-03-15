@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>FACTORY OBJECT</title>
+    <script>
+        
+    // READING
+    // http://ericleads.com/2012/09/stop-using-constructor-functions-in-javascript/
+    
+    (function () {
+        
+        var myPrototype = {
+            
+            publicName : 'Tom',
+                        
+            getPublicName: function getName() {
+                return this.publicName;
+            },
+            
+            getPrivateName: function getName() {
+                return privateName;
+            },
+            
+            methodA: function methodA() {
+                console.log('methodA');
+            },
+            methodB: function methodB() {
+                console.log('methodB');
+            },
+            methodC: function methodC() {
+                console.log('methodC');
+            }
+        };
+ 
+        createFoo = function createFoo() {
+            var privateName = "Steve";
+            return (Object.create(myPrototype));
+        };
+        
+        var foo = createFoo();
+        console.log(foo);
+        console.log(foo.getPublicName());
+        
+        //console.log(foo.getPrivateName()); 
+        // ERROR NOT SURE HOW TO HANDLE PRIVATE & SHARE ACROSS METHODS    
+        
+        
+        
+    }());
+    
+    // READING
+    // http://www.smashingmagazine.com/2010/04/20/seven-javascript-things-i-wish-i-knew-much-earlier-in-my-career/
+    
+    (function () {
+        
+        var myApplication = function(){
+            
+            var name = 'Chris';
+            var age = '34';
+            var status = 'single';
+            
+            function createMember(){
+                console.log('createMember');
+            }
+            
+            function getMemberDetails(){
+                console.log('getMemberDetails');
+            }
+            
+            return{
+                create:createMember,
+                get:getMemberDetails
+            }
+            
+        }();
+        
+        myApplication.get();
+        myApplication.create();
+        
+        console.log(myApplication)
+        
+    }());
+       
+    
+   </script>
+</head>
+<body></body>
+</html>
