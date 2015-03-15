@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>OBJECT.CREATE</title>
+    <script>
+        
+    // READING
+    // http://www.htmlgoodies.com/beyond/javascript/object.create-the-new-way-to-create-objects-in-javascript.html
+    // ISSUES: "desc" GETS LOST
+    
+    (function () {
+        
+        function Car (desc) {
+            this.desc = desc;
+            this.color = "red";
+        }
+ 
+        Car.prototype = {
+            getInfo: function() {
+                return 'A ' + this.color + ' ' + this.desc + '.';
+            }
+        };
+
+        var car =  Object.create(Car.prototype);
+        car.color = "blue";
+        
+        console.log(car.getInfo()); 
+        console.log(window); 
+        console.log("----------------------------------------"); 
+        
+    }());
+    
+    
+    // READING
+    // http://www.htmlgoodies.com/beyond/javascript/object.create-the-new-way-to-create-objects-in-javascript.html
+    // MORE ADVANCED EXAMPLE
+    (function () {
+        
+        var Car2 = Object.create(null);
+        
+        Car2.prototype = {
+            getInfo: function() {
+                return 'A ' + this.color + ' ' + this.desc + '.';
+            }
+        };
+        
+        var aacar2 = Object.create(Car2.prototype, 
+            {
+                color:   { 
+                    writable: true,  
+                    configurable:true, 
+                    value: 'red' 
+                },
+                rawDesc: { 
+                    writable: false, 
+                    configurable:true, 
+                    value: 'Porsche boxter'
+                },
+                desc: { 
+                    configurable:true, 
+                    get: function ()      { 
+                        return this.rawDesc.toUpperCase();  
+                    },
+                    set: function (value) { 
+                        this.rawDesc = value.toLowerCase(); 
+                    }  
+                },
+            }); 
+            
+        aacar2.color = 'blue';
+        
+        console.log(aacar2.getInfo());
+        console.log(aacar2.setName());
+        
+        console.log(window);
+        
+    }());
+       
+    
+   </script>
+</head>
+<body></body>
+</html>
