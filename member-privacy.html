@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>MEMBER TYPES</title>
+    <script>
+    
+    //- NOTES: 
+    //-- LEARNING AND INSPECTING CODE TAKEN FROM:
+    //-- http://javascript.crockford.com/private.html
+    
+    
+    //- 1) PUBLIC TEST
+    (function () {
+        
+        function Container(param) {
+            this.member = param;
+            console.log(this);
+        }     
+        
+        var aaContainer = new Container('abc');
+        console.log(aaContainer);
+        
+        Container.prototype.stamp = function (string) {
+            return this.member + string;
+        }  
+        
+        console.log(aaContainer.stamp('def'));
+        console.log(this); // PRINT GLOBAL 
+        
+    }());
+    
+    
+     //- 1) PRIVATE & PRIVILEGED TEST
+    (function () {
+        
+        function Container2(param) {
+
+            function dec() {
+                if (secret > 0) {
+                    secret -= 1;
+                    return true;
+                } else {
+                    return false;
+                }
+            }            
+
+            this.member = param;
+            var secret = 3;
+            var that = this;
+            that.member2 = "member 2";
+            
+            console.log('that 0 --------------');
+            console.log(that.member2);
+            console.log(this.member2);
+
+            console.log('that 1 --------------');
+            console.log(that.member);
+            console.log(this.member);
+
+            this.member = 'cheese';
+            console.log('that 2 --------------');
+            console.log(that.member);
+            console.log(this.member);
+            
+            that.member = 'pizza';
+            console.log('that 3 --------------');
+            console.log(that.member);
+            console.log(this.member);
+            
+            console.log(dec());
+            
+            this.service = function () {
+                return dec() ? that.member : null;
+            };
+
+        }
+        
+        // WITH NEW
+        var aaaContainer = new Container2('steve');
+        console.log(aaaContainer.hasOwnProperty('dec'));
+        console.log(aaaContainer.service()); // PRIVILEGED
+        console.log(this); 
+        
+        // WITH OUT NEW -- YOU WILL SEE MEMBERS IN GLOABL SCOPE
+        //var aaaaContainer = Container2('steve'); 
+        
+    }());
+        
+    
+    </script>
+</head>
+<body></body>
+</html>
